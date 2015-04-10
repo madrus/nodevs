@@ -1,0 +1,53 @@
+This solution shows how Yoeman with hottowel generate a template SPA with Angular
+
+Before we run the app, make sure you have run all of the commands. 
+If you have not, here is a quick list:
+
+    npm install -g bower grunt-cli gulp yo
+    npm install -g generator-hottowel
+    mkdir NodeVS
+    cd NodeVS
+    yo hottowel helloWorld
+
+Now run the app by typing the following command:
+
+    gulp serve-dev --sync
+
+23-02-2015
+
+Running the app as above brings up this error message:
+
+J:\_DEV\Src\NodeVS\node_modules\gulp-less\index.js:68
+    }).done(undefined, cb);
+       ^
+TypeError: undefined is not a function
+
+REASON:
+Native promise does not have .done, while then/promise has. Less includes then/promise only if no native promises are available.
+(see https://github.com/plus3network/gulp-less/issues/140)
+
+FIX: 
+Open index.js on line 68 and replace 'done' with 'then'
+
+===============================================================
+gulp-ng-anntotate.js
+When running gulp build, I get the following error message:
+
+     J:\_DEV\Src\NodeVS\node_modules\gulp-ng-annotate\node_modules\ng-annotate\build\es5\ng-annotate-main.js:330
+         target.$methodName = method.name;
+                       ^
+     TypeError: Cannot assign to read only property '$methodName' of false
+
+Reason:
+If (target) guard is missing and target.$methodName is assigned unconditionally, even if target is false. 
+
+Fix:
+Substitute line 330 in J:\_DEV\Src\NodeVS\node_modules\gulp-ng-annotate\node_modules\ng-annotate\build\es5\ng-annotate-main.js
+
+    target.$methodName = method.name;
+
+with
+
+  if (target) {
+     target.$methodName = method.name;
+  }      
