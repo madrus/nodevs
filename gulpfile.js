@@ -1,3 +1,4 @@
+/// <binding BeforeBuild='test' />
 var args = require('yargs').argv;
 var browserSync = require('browser-sync');
 var config = require('./gulp.config')();
