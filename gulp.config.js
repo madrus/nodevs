@@ -145,7 +145,7 @@ module.exports = function() {
 
     return config;
 
-    ////////////////
+    ///////////////////
 
     function getKarmaOptions() {
         var options = {
